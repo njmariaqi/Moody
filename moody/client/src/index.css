@@ -1,0 +1,34 @@
+.card {
+  position: relative;
+}
+.card:hover img {
+  opacity: 0.5;
+  position: relative;
+}
+.hiddenCollection {
+  width: 20%;
+  display: none;
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
+.card:hover .hiddenCollection {
+  display: block;
+}
+.hiddenFav {
+  width: 20%;
+  display: none;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.card:hover .hiddenFav {
+  display: block;
+}
+
+.signInForm {
+  padding: 15px;
+  margin: auto;
+  background-color: white;
+}
