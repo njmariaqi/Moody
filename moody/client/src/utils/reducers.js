@@ -4,7 +4,8 @@ import {
   PRESENT_IMAGES,
   GET_USER_INFO,
   UPDATE_COLLECTION_LIST,
-  PRESENT_ONE_COLLECTION
+  PRESENT_ONE_COLLECTION,
+  CLEAR_COLLECTION_HISTORY
 } from './actions'
 
 export const reducer = (state, action) => {
@@ -14,11 +15,16 @@ export const reducer = (state, action) => {
         ...state,
         imageArry: action.payload
       };
-      case PRESENT_ONE_COLLECTION:
+    case PRESENT_ONE_COLLECTION:
       return {
         ...state,
-        collectionImgs: action.payload
+        collectionImgs: [...state.collectionImgs, action.payload]
       };
+    case CLEAR_COLLECTION_HISTORY:
+      return{
+        ...state,
+        collectionImgs:[]
+      }
     case GET_COLLECTION_LIST:
       return{
         ...state,

@@ -5,7 +5,6 @@ const resolvers = require('./schemas/resolvers');
 const typeDefs = require('./schemas/typeDefs');
 const { authMiddleware } = require("./utils/auth");
 const db = require('./config/connection');
-const { createProxyMiddleware } = require('http-proxy-middleware');
 
 async function startServer(typeDefs, resolvers, authMiddleware) {
   const PORT = process.env.PORT || 3001;
@@ -25,7 +24,7 @@ async function startServer(typeDefs, resolvers, authMiddleware) {
     app.use(express.static(path.join(__dirname, '../client/build')));
   }
 
-  app.get('/api/*', (req, res) => {
+  app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 
