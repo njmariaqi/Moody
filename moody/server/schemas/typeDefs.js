@@ -34,7 +34,7 @@ type Query {
 type Mutation {
   addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!):Auth
-  addCollection(name: String!): Collection
+  addCollection(name: String!, images:[Int]!): Collection
   addImage(collectionId: ID!, imageId: Int!): Collection
   removeCollection(collectionId: ID!): Collection
   removeImage(collectionId: ID!, imageId: Int!): Collection

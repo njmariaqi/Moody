@@ -1,7 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
+import Auth from '../utils/auth'
 
 export default function Signup() {
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName:"",
+    email: "",
+    password: ""
+  })
+  const [addUser] = useMutation(ADD_USER);
+
+  const getForm = (e) =>{
+    const {name, value} = e.target;
+    setForm({
+      ...form,
+      [name]: value
+    })
+  }
+
+
+  const signup = async (e) =>{
+    e.preventDefault();
+    console.log(form,'form info')
+    const res = await addUser({
+      variables: {
+        firstName:form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        password:form.password
+      }
+    });
+    const token = res.data.addUser.token;
+    Auth.login(token);
+  }
+
+
   return (
     <div>
       <div className='container' style={{marginTop: '30vh'}}>
@@ -9,11 +45,21 @@ export default function Signup() {
           <div className='col-4' style={{minWidth: '300px'}}>
             <div className="card shadow-sm">
               <h1 className="h3 mt-5 d-flex justify-content-center">Welcome to Moody</h1>
-              <form className="row g-1 p-3 mx-3">
-                <input type="text" style={{borderRadius: '20px'}} className="form-control my-1" placeholder='First Name' id="inputFirst"></input>
-                <input type="text" style={{borderRadius: '20px'}} className="form-control my-1" placeholder='Last Name' id="inputLast"></input>
-                <input type="email" style={{borderRadius: '20px'}} className="form-control my-1" placeholder='Email' id="inputEmail"></input>
-                <input type="password" style={{borderRadius: '20px'}} className="form-control my-1" placeholder='Create a password' id="inputPass"></input>
+              <form 
+                onSubmit={signup}
+                className="row g-1 p-3 mx-3">
+                <input 
+                name='firstName' onChange={getForm}
+                type="text" style={{borderRadius: '20px'}} className="form-control my-1" placeholder='First Name' id="inputFirst"></input>
+                <input 
+                name='lastName' onChange={getForm}
+                type="text" style={{borderRadius: '20px'}} className="form-control my-1" placeholder='Last Name' id="inputLast"></input>
+                <input 
+                name='email' onChange={getForm}
+                type="email" style={{borderRadius: '20px'}} className="form-control my-1" placeholder='Email' id="inputEmail"></input>
+                <input 
+                name='password' onChange={getForm}
+                type="password" style={{borderRadius: '20px'}} className="form-control my-1" placeholder='Create a password' id="inputPass"></input>
                 <button type="submit" style={{borderRadius: '20px'}} className="btn btn-dark my-3">Login</button>
               </form>
             </div>

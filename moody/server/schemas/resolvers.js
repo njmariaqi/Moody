@@ -45,10 +45,13 @@ const resolvers = {
 
       return { token, user };
     },
-    addCollection: async (parent, {name}, context) =>{
+    addCollection: async (parent, {name, images}, context) =>{
       if(context.user){
-        const collection = await Collection.create(
-          {name:name, user: context.user._id});
+        const collection = await Collection.create({
+          name:name, 
+          user: context.user._id,
+          images: images
+          });
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { collections: collection._id } }

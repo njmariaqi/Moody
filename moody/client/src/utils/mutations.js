@@ -34,10 +34,11 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_COLLECTION = gql`
-  mutation addCollection($name: String!){
-    addCollection(name: $name) {
+  mutation addCollection($name: String!, $images: [Int]!){
+    addCollection(name: $name, images: $images) {
       _id
       name
+      images
     }
   }
 `;

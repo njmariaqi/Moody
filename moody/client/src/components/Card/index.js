@@ -1,25 +1,32 @@
 import React, {useState, useEffect} from 'react';
 import { useMutation, useQuery} from '@apollo/client'; 
 import { useGlobalContext } from '../../utils/globalContext';
-import {ADD_IMAGE, GET_COLLECTION_LIST} from '../../utils/mutations';
+import {ADD_IMAGE, ADD_COLLECTION} from '../../utils/mutations';
 import {UPDATE_COLLECTION_LIST} from '../../utils/actions'
+import CollectionInfo from '../CollectionInfo/index'
 
 export default function Card(props) {
   const [state, dispatch] = useGlobalContext();
   const {collectionList} = state;
   const [addImage, {error}] = useMutation(ADD_IMAGE)
+  const [addCollection] = useMutation(ADD_COLLECTION);
+  const [newCollection, setNewCollection] = useState("")
+  const [display, setDisplay] = useState("none")
   
   // useEffect(()=>{console.log('test useEffect')})
 
   const addImageToCollection = async (e) =>{
-    console.log(e.target, 'target')
     try{
       const {data} = await addImage({
         variables: {collectionId: e.target.id, imageId: props.imgId} 
       })
+      console.log(data,'add image')
       dispatch({
         type: UPDATE_COLLECTION_LIST,
-        payload: data.addImage
+        payload: {
+          collectionId: e.target.id,
+          imgId: props.imgId
+        }
       })
     }catch(error){
       console.error(error)
@@ -27,9 +34,24 @@ export default function Card(props) {
   }
 
 
+  const collectionData = (e) =>{
+
+  }
+
+  // const addNewCollection = async(e) =>{
+  //   try {
+  //     const {data} = await addCollection({
+  //       variables: {name: }
+  //     })
+  //   }catch(e){
+  //     console.error(e)
+  //   }
+  // }
+
+
   return (
-      <div className="col-3 my-3">
-        <div className="card shadow-sm">
+    <div className="col-3 my-3">
+      <div className="card shadow-sm">
           <img src={props.imgSrc} alt='testing img'></img>
           <div className="dropup hiddenCollection">
             <button className="btn dropdown-toggle" 
@@ -41,6 +63,9 @@ export default function Card(props) {
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               {collectionList.map((e)=>{return <li><a className="dropdown-item" id={e._id} href="#" key={e._id}
               onClick={addImageToCollection}>{e.name}</a></li>})}
+              <li><a 
+              // onClick={()=>{setDisplay("block")}}
+              className="dropdown-item text-primary" id="addNewCollection" key="addNewCollection">Add New Collection</a></li>
             </ul>
           </div>
           <div className="dropup">
@@ -50,11 +75,12 @@ export default function Card(props) {
             </svg>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a className="dropdown-item" href="#" key="copyLink">copy link</a></li>
-              <li><a className="dropdown-item" href="#" key="sendViaEmail">send via email</a></li>
+              <li><a className="dropdown-item" href="#" key="copyLink">download</a></li>
+              <li><a className="dropdown-item" href="#" key="sendViaEmail">share</a></li>
             </ul>
           </div>
       </div>
+      {/* <CollectionInfo display={display} /> */}
     </div>
     
   );

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { LOGIN } from '../utils/mutations';
 //import { QUERY_ONE_COLLECTION } from '../utils/queries';
-import {auth} from '../utils/auth'
+import Auth from '../utils/auth'
 import { useGlobalContext } from '../utils/globalContext';
 import {GET_COLLECTION_LIST, PRESENT_IMAGES, GET_USER_INFO} from '../utils/actions';
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,8 @@ export default function Login() {
   const navigate = useNavigate();
 
   const loginSubmit = async (e) => {
+    
+
     e.preventDefault();
     try {
       const { data } = await login({
@@ -40,7 +42,7 @@ export default function Login() {
       
       console.log(state)
 
-      auth.login(data.login.token);
+      Auth.login(data.login.token);
       navigate("/");
 
     } catch (e) {

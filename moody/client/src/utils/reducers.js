@@ -39,8 +39,8 @@ export const reducer = (state, action) => {
       return{
         ...state,
         collectionList: state.collectionList.map((e)=>{
-          if(e._id ===action.payload._id){
-            e.images = action.payload.images
+          if(e._id ===action.payload.collectionId){
+            e.images.push(action.payload.imgId)
           }
           return e
         })
