@@ -8,6 +8,8 @@ import { useGlobalContext } from '../utils/globalContext';
 import {GET_COLLECTION_LIST, PRESENT_IMAGES, GET_USER_INFO} from '../utils/actions';
 import { useNavigate } from "react-router-dom";
 
+const axios = require('axios');
+
 export default function Login() {  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
@@ -24,11 +26,19 @@ export default function Login() {
         variables: {email: email, password:password}
       });
       
-      console.log(data.login.user,'user');
+      const collection = data.login.user.collections;
+      collection.map(async (e) => {
+        let res = await axios.get(`https://api.pexels.com/v1/photos/${e.images[0]}`, 
+        {
+          headers: {'Authorization': '563492ad6f917000010000016c4b56d578274683956ae00d8dcd354a'}
+        })
+        console.log(res.data,'res')
+        e.cover = res.data
+      })
 
       dispatch({
         type:GET_COLLECTION_LIST,
-        payload: data.login.user.collections
+        payload: collection
       });
       const username = {
         firstName: data.login.user.firstName,

@@ -10,7 +10,14 @@ export default function GlobalProvider({value=[], ...props}) {
     username: {},
     collectionList:[],
     imageArry: [],
-    collectionImgs: []
+    collectionImgs: [],
+    collectionModal: false,
+    imgModal: false,
+    imgInfo: {
+      id: "",
+      photographer: "",
+      src: "https://i.pinimg.com/474x/93/0a/4d/930a4d73ceb4343e524c5be477b75b74.jpg"
+    }
   })
   
   return <GlobalContext.Provider value={[state, dispatch]} {...props} />

@@ -1,19 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import { useMutation, useQuery} from '@apollo/client'; 
 import { useGlobalContext } from '../../utils/globalContext';
-import {ADD_IMAGE, ADD_COLLECTION} from '../../utils/mutations';
-import {UPDATE_COLLECTION_LIST} from '../../utils/actions'
-import CollectionInfo from '../CollectionInfo/index'
+import {ADD_IMAGE} from '../../utils/mutations';
+import {
+  UPDATE_COLLECTION_LIST,
+  SHOW_COLLECTION_MODAL,
+  GET_IMAGE_INFO,
+  SHOW_IMG_MODAL,
+} from '../../utils/actions'
 
 export default function Card(props) {
   const [state, dispatch] = useGlobalContext();
   const {collectionList} = state;
   const [addImage, {error}] = useMutation(ADD_IMAGE)
-  const [addCollection] = useMutation(ADD_COLLECTION);
-  const [newCollection, setNewCollection] = useState("")
-  const [display, setDisplay] = useState("none")
   
-  // useEffect(()=>{console.log('test useEffect')})
 
   const addImageToCollection = async (e) =>{
     try{
@@ -33,26 +33,39 @@ export default function Card(props) {
     }
   }
 
-
-  const collectionData = (e) =>{
-
+  const showModal = () =>{
+    dispatch({
+      type: SHOW_COLLECTION_MODAL
+    })
+    dispatch({
+      type: GET_IMAGE_INFO,
+      payload: {
+        id: props.id,
+        photographer: props.imgInfo.photographer,
+        src: props.imgSrc
+      }
+    })
   }
 
-  // const addNewCollection = async(e) =>{
-  //   try {
-  //     const {data} = await addCollection({
-  //       variables: {name: }
-  //     })
-  //   }catch(e){
-  //     console.error(e)
-  //   }
-  // }
-
+    const viewLargeImg = (e)=>{
+      dispatch({
+        type: SHOW_IMG_MODAL
+      })
+      dispatch({
+        type: GET_IMAGE_INFO,
+        payload: {
+          id: props.imgId,
+          photographer: props.imgInfo.photographer,
+          src: props.imgSrc
+        }
+      })
+    }
 
   return (
     <div className="col-3 my-3">
       <div className="card shadow-sm">
-          <img src={props.imgSrc} alt='testing img'></img>
+          <img onClick={viewLargeImg}
+          src={props.imgSrc} alt='testing img'></img>
           <div className="dropup hiddenCollection">
             <button className="btn dropdown-toggle" 
             type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,7 +77,7 @@ export default function Card(props) {
               {collectionList.map((e)=>{return <li><a className="dropdown-item" id={e._id} href="#" key={e._id}
               onClick={addImageToCollection}>{e.name}</a></li>})}
               <li><a 
-              // onClick={()=>{setDisplay("block")}}
+              onClick={showModal}
               className="dropdown-item text-primary" id="addNewCollection" key="addNewCollection">Add New Collection</a></li>
             </ul>
           </div>
@@ -80,7 +93,6 @@ export default function Card(props) {
             </ul>
           </div>
       </div>
-      {/* <CollectionInfo display={display} /> */}
     </div>
     
   );

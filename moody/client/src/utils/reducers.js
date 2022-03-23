@@ -5,7 +5,13 @@ import {
   GET_USER_INFO,
   UPDATE_COLLECTION_LIST,
   PRESENT_ONE_COLLECTION,
-  CLEAR_COLLECTION_HISTORY
+  CLEAR_COLLECTION_HISTORY,
+  SHOW_COLLECTION_MODAL,
+  HIDE_COLLECTION_MODAL,
+  GET_IMAGE_INFO,
+  ADD_NEW_COLLECTION,
+  HIDE_IMG_MODAL,
+  SHOW_IMG_MODAL
 } from './actions'
 
 export const reducer = (state, action) => {
@@ -24,7 +30,7 @@ export const reducer = (state, action) => {
       return{
         ...state,
         collectionImgs:[]
-      }
+      };
     case GET_COLLECTION_LIST:
       return{
         ...state,
@@ -44,6 +50,36 @@ export const reducer = (state, action) => {
           }
           return e
         })
+      };
+    case SHOW_COLLECTION_MODAL:
+      return{
+        ...state,
+        collectionModal: true
+      };
+    case HIDE_COLLECTION_MODAL:
+      return{
+        ...state,
+        collectionModal: false
+      };
+    case GET_IMAGE_INFO:
+      return{
+        ...state,
+        imgInfo: action.payload
+      };
+    case ADD_NEW_COLLECTION:
+      return{
+        ...state,
+        collectionList: state.collectionList.push(action.payload)
+      };
+    case HIDE_IMG_MODAL:
+      return{
+        ...state,
+        imgModal: false
+      };
+    case SHOW_IMG_MODAL:
+      return{
+        ...state,
+        imgModal: true
       }
   }
 }

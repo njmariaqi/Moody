@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CollectionCard from '../components/CollectionCard'
 import { useGlobalContext } from '../utils/globalContext';
 
+const axios = require('axios');
 
 export default function CollectionList() {
   const [state, dispatch] = useGlobalContext();
   const {collectionList, username} = state;
-  // console.log(state, 'collection list console')
-  
+
   return (
     <div>
       <div className="container d-flex justify-content-center mt-5">
@@ -21,7 +21,7 @@ export default function CollectionList() {
       <div className="album py-3">
       <div className="container">
         <div className="row justify-content-start">
-          {collectionList.map((e) => {return <CollectionCard key = {e._id} id = {e._id} collectionName = {e.name} collectionId = {e._id} images = {e.images}/>})}
+          {collectionList.map((e) => {return <CollectionCard key = {e._id} id = {e._id} collectionName = {e.name} collectionId = {e._id} images = {e.images} coverSrc = {e.cover.src.large}/>})}
         </div>
       </div>
     </div>
