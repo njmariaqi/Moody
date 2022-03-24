@@ -10,4 +10,4 @@ export const GET_IMAGE_INFO = "GET_IMAGE_INFO";
 export const ADD_NEW_COLLECTION = "ADD_NEW_COLLECTION";
 export const SHOW_IMG_MODAL = "SHOW_IMG_MODAL";
 export const HIDE_IMG_MODAL = "HIDE_IMG_MODAL";
-
+export const HOME_IMAGES = "HOME_IMAGES";

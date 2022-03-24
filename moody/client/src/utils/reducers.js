@@ -11,7 +11,8 @@ import {
   GET_IMAGE_INFO,
   ADD_NEW_COLLECTION,
   HIDE_IMG_MODAL,
-  SHOW_IMG_MODAL
+  SHOW_IMG_MODAL,
+  HOME_IMAGES,
 } from './actions'
 
 export const reducer = (state, action) => {
@@ -80,6 +81,11 @@ export const reducer = (state, action) => {
       return{
         ...state,
         imgModal: true
+      };
+    case HOME_IMAGES:
+      return{
+        ...state,
+        imageArry: [...state.imageArry, ...action.payload]
       }
   }
 }

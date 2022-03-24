@@ -9,7 +9,7 @@ import {
   SHOW_IMG_MODAL,
 } from '../../utils/actions'
 
-export default function Card(props) {
+const Card = React.forwardRef((props, ref)=> {
   const [state, dispatch] = useGlobalContext();
   const {collectionList} = state;
   const [addImage, {error}] = useMutation(ADD_IMAGE)
@@ -63,7 +63,7 @@ export default function Card(props) {
 
   return (
     <div className="col-3 my-3">
-      <div className="card shadow-sm">
+      <div className="card shadow-sm" ref={ref}>
           <img onClick={viewLargeImg}
           src={props.imgSrc} alt='testing img'></img>
           <div className="dropup hiddenCollection">
@@ -96,4 +96,6 @@ export default function Card(props) {
     </div>
     
   );
-}
+})
+
+export default Card;
