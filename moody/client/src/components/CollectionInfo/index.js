@@ -35,6 +35,10 @@ export default function CollectionInfo(props) {
         type: ADD_NEW_COLLECTION,
         payload: data.addCollection
       })
+      setCollectionName("")
+      dispatch({
+        type: HIDE_COLLECTION_MODAL
+      })
       // dispatch({
       //   type: HIDE_COLLECTION_MODAL
       // })

@@ -33,7 +33,7 @@ export default function CollectionList() {
         const collections = collection.map(async(e)=>{
           let res = await axios.get(`https://api.pexels.com/v1/photos/${e.images[0]}`, 
           {
-            headers: {'Authorization': '563492ad6f917000010000015cf5ff7c412542d980a62beb2d41dc62'}
+            headers: {'Authorization': '563492ad6f917000010000016c4b56d578274683956ae00d8dcd354a'}
           })
           e = {...e, cover:res.data} 
           console.log("eee", e,loading)

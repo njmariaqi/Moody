@@ -20,7 +20,8 @@ import {
   CLEAR_HOME_HISTORY,
   CLEAR_COLLECTION_LIST,
   LOGIN_STATUS,
-  LOGOUT_STATUS
+  LOGOUT_STATUS,
+  DELETE_COLLECTION
 } from './actions'
 
 export const reducer = (state, action) => {
@@ -46,7 +47,12 @@ export const reducer = (state, action) => {
           photographer: "",
           src: "https://i.pinimg.com/474x/93/0a/4d/930a4d73ceb4343e524c5be477b75b74.jpg"
         }
-      }
+      };
+    // case DELETE_COLLECTION:
+    //   return{
+    //     ...state,
+    //     collectionList:
+    //   }
     case PRESENT_IMAGES:
       return {
         ...state,
