@@ -8,7 +8,7 @@ const resolvers = {
       return User.find().populate('collections')
     },
     userId: async(parent, {userId}) =>{
-      return User.findOne({_id: userId})
+      return User.findOne({_id: userId}).populate('collections')
     },
     collections: async(parent, {name}) =>{
       return Collection.find({name}).populate('user')

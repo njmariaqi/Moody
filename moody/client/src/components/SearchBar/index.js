@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from '../../utils/globalContext';
 import {
-  PRESENT_IMAGES
+  PRESENT_IMAGES,
+  IMAGE_QUERY,
+  CLEAR_IMG_HISTORY
 } from '../../utils/actions'
 
 const axios = require('axios');
@@ -13,23 +15,17 @@ export default function SearchBar() {
   const [search, setSearch] = useState("")
   const navigate = useNavigate();
 
-  const getImg = async(e) => {
-    if(e.key === 'Enter') {
-      let searchResult;
-      try {
-        let res = await axios.get(`https://api.pexels.com/v1/search?query=${search}`, {
-          headers: {'Authorization': '563492ad6f917000010000016c4b56d578274683956ae00d8dcd354a'}
-        })
-        searchResult = res.data.photos
-      } catch(err) {
-        console.error(err)
-      }
+  const getImg = (e)=>{
+    if(e.key === "Enter"){
       dispatch({
-        type: PRESENT_IMAGES,
-        payload: searchResult
-      });
-      setSearch('')
-      navigate("/searchresult");
+            type:CLEAR_IMG_HISTORY
+          })
+      dispatch({
+        type: IMAGE_QUERY,
+        payload: search
+      })
+      setSearch("");
+      navigate("/searchresult")
     }
   }
 

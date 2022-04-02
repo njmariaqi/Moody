@@ -2,18 +2,29 @@ import React, {useState, useEffect} from 'react';
 import { useMutation, useQuery} from '@apollo/client'; 
 import { useGlobalContext } from '../../utils/globalContext';
 import {ADD_IMAGE} from '../../utils/mutations';
+import {QUERY_USER} from '../../utils/queries'
 import {
   UPDATE_COLLECTION_LIST,
   SHOW_COLLECTION_MODAL,
   GET_IMAGE_INFO,
   SHOW_IMG_MODAL,
+  GET_COLLECTION_LIST
 } from '../../utils/actions'
 
 const Card = React.forwardRef((props, ref)=> {
   const [state, dispatch] = useGlobalContext();
   const {collectionList} = state;
   const [addImage, {error}] = useMutation(ADD_IMAGE)
+  const {loading, data} = useQuery(QUERY_USER)
   
+  useEffect(()=>{
+    if(data){
+      dispatch({
+        type: GET_COLLECTION_LIST,
+        payload: data.user.collections
+      })
+    }
+  }, [data, loading])
 
   const addImageToCollection = async (e) =>{
     try{

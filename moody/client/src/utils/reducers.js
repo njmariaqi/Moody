@@ -1,6 +1,7 @@
 import { useReducer } from 'react';
 import {
   GET_COLLECTION_LIST,
+  GET_COLLECTION_INFO,
   PRESENT_IMAGES,
   GET_USER_INFO,
   UPDATE_COLLECTION_LIST,
@@ -13,6 +14,11 @@ import {
   HIDE_IMG_MODAL,
   SHOW_IMG_MODAL,
   HOME_IMAGES,
+  IMAGE_QUERY,
+  CLEAR_IMG_HISTORY,
+  SEARCH_RESULT,
+  CLEAR_HOME_HISTORY,
+  CLEAR_COLLECTION_LIST
 } from './actions'
 
 export const reducer = (state, action) => {
@@ -37,6 +43,11 @@ export const reducer = (state, action) => {
         ...state,
         collectionList: action.payload
       };
+    case GET_COLLECTION_INFO:
+      return{
+        ...state,
+        collectionList: state.collectionList.push(action.payload)
+      }
     case GET_USER_INFO:
       return {
         ...state,
@@ -47,7 +58,8 @@ export const reducer = (state, action) => {
         ...state,
         collectionList: state.collectionList.map((e)=>{
           if(e._id ===action.payload.collectionId){
-            e.images.push(action.payload.imgId)
+            console.log('add')
+            return {...e, images: [...e.images, action.payload.imgId]}
           }
           return e
         })
@@ -70,7 +82,7 @@ export const reducer = (state, action) => {
     case ADD_NEW_COLLECTION:
       return{
         ...state,
-        collectionList: state.collectionList.push(action.payload)
+        collectionList: [...state.collectionList, action.payload]
       };
     case HIDE_IMG_MODAL:
       return{
@@ -87,6 +99,32 @@ export const reducer = (state, action) => {
         ...state,
         imageArry: [...state.imageArry, ...action.payload]
       }
+    case IMAGE_QUERY:
+      return{
+        ...state,
+        query: action.payload
+      }
+    case CLEAR_IMG_HISTORY:
+      return{
+        ...state,
+        searchResultImg: []
+      }
+    case CLEAR_HOME_HISTORY:
+      return{
+        ...state,
+        imageArry: []
+      }
+    case SEARCH_RESULT:
+      return{
+        ...state,
+        searchResultImg: [...state.searchResultImg, ...action.payload]
+      }
+    case CLEAR_COLLECTION_LIST:
+      return{
+        ...state,
+        collectionList: []
+      }
+
   }
 }
 

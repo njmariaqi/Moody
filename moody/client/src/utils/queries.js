@@ -16,6 +16,22 @@ export const QUERY_USER = gql`
   }
 `
 
+export const QUERY_USER_ID = gql`
+  query userId($userId: ID!){
+    user(userId: $userId){
+      _id
+      firstName
+      lastName
+      email
+      collections {
+        _id
+        name
+        images
+      }
+    }
+  }
+`
+
 export const QUERY_COLLECTIONS = gql`
   query collections($name: String!){
     collections{

@@ -17,7 +17,7 @@ export default function CollectionCard(props) {
     //     let res = await axios.get(`https://api.pexels.com/v1/photos/${id}
     //     `, 
     //     {
-    //       headers: {'Authorization': '563492ad6f917000010000016c4b56d578274683956ae00d8dcd354a'}
+    //       headers: {'Authorization': '563492ad6f917000010d000016c4b56d578274683956ae00d8dcd354a'}
     //     })
     //     // console.log(res)
     //     collectionImgArry.push(res.data)

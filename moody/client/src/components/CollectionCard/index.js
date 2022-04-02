@@ -9,7 +9,6 @@ const axios = require('axios');
 export default function CollectionCard(props) {
   const [state, dispatch] = useGlobalContext();
   const navigate = useNavigate();
-  console.log('props', props)
   const viewCollection = (e) =>{
     dispatch({
       type: CLEAR_COLLECTION_HISTORY,
@@ -19,7 +18,7 @@ export default function CollectionCard(props) {
         let res = await axios.get(`https://api.pexels.com/v1/photos/${id}
         `, 
         {
-          headers: {'Authorization': '563492ad6f917000010000016c4b56d578274683956ae00d8dcd354a'}
+          headers: {'Authorization': '563492ad6f917000010000015cf5ff7c412542d980a62beb2d41dc62'}
         })
         dispatch({
           type: PRESENT_ONE_COLLECTION,
@@ -36,7 +35,7 @@ export default function CollectionCard(props) {
     return (
         <div className="col-3 my-3" onClick={viewCollection}>
           <div className="card shadow-sm">
-            <img style={{height: '240px', objectFit:'cover'}} src={props.coverSrc} />
+            <img style={{height: '240px', objectFit:'cover'}} src={props.coverSrc} alt="nahnah"/>
             
             
           </div>

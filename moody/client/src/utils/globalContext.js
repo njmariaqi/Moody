@@ -8,8 +8,10 @@ export const GlobalContext = React.createContext();
 export default function GlobalProvider({value=[], ...props}) {
   const [state, dispatch] = useGlobalReducer({
     username: {},
+    query:"",
     collectionList:[],
     imageArry: [],
+    searchResultImg:[],
     collectionImgs: [],
     collectionModal: false,
     imgModal: false,

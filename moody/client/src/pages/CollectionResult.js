@@ -10,7 +10,6 @@ export default function CollectionResult() {
 
   const [state, dispatch] = useGlobalContext();
   const {collectionImgs} = state;
-  console.log(state,'collectionresult')
 
   return (
     <div>
