@@ -24,8 +24,6 @@ export default function Home() {
   const observer = useRef()
   
   
-  const token = Auth.getProfile();
-  
   useEffect(()=>{
     dispatch({
       type:CLEAR_HOME_HISTORY
@@ -48,7 +46,6 @@ export default function Home() {
         payload: curatedResult.photos
       });
       console.log(state, 'home console');
-      console.log(token,'home token')
 
       setHasMore(curatedResult.photos.length > 0);
       setpageLoading(false)

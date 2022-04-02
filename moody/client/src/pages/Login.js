@@ -5,7 +5,7 @@ import { LOGIN } from '../utils/mutations';
 //import { QUERY_ONE_COLLECTION } from '../utils/queries';
 import Auth from '../utils/auth'
 import { useGlobalContext } from '../utils/globalContext';
-import {GET_COLLECTION_LIST, PRESENT_IMAGES, GET_USER_INFO} from '../utils/actions';
+import {GET_COLLECTION_LIST, PRESENT_IMAGES, LOGIN_STATUS, GET_USER_INFO} from '../utils/actions';
 import { useNavigate } from "react-router-dom";
 
 const axios = require('axios');
@@ -48,6 +48,9 @@ export default function Login() {
         type:GET_USER_INFO,
         payload: username
       });
+      dispatch({
+        type: LOGIN_STATUS
+      })
       
       console.log(state)
 

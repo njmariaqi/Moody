@@ -18,11 +18,35 @@ import {
   CLEAR_IMG_HISTORY,
   SEARCH_RESULT,
   CLEAR_HOME_HISTORY,
-  CLEAR_COLLECTION_LIST
+  CLEAR_COLLECTION_LIST,
+  LOGIN_STATUS,
+  LOGOUT_STATUS
 } from './actions'
 
 export const reducer = (state, action) => {
   switch(action.type) {
+    case LOGIN_STATUS:
+      return{
+        ...state,
+        login: true
+      };
+    case LOGOUT_STATUS:
+      return{
+        login: false,
+        username: {},
+        query:"",
+        collectionList:[],
+        imageArry: state.imageArry,
+        searchResultImg:[],
+        collectionImgs: [],
+        collectionModal: false,
+        imgModal: false,
+        imgInfo: {
+          id: "",
+          photographer: "",
+          src: "https://i.pinimg.com/474x/93/0a/4d/930a4d73ceb4343e524c5be477b75b74.jpg"
+        }
+      }
     case PRESENT_IMAGES:
       return {
         ...state,

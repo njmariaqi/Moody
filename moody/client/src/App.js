@@ -53,7 +53,6 @@ function App() {
             <Route exact path='/signup' element = {<Signup/>} />
             <Route exact path='/searchresult' element = {<SearchResult/>} />
             <Route exact path='/collectionresult' element = {<CollectionResult/>} />
-
           </Routes>
         </Router>
       </GlobalProvider>

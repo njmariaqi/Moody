@@ -13,7 +13,6 @@ let count = 1;
 export default function CollectionList() {
   const [state, dispatch] = useGlobalContext();
   const {collectionList, username} = state;
-  const token = Auth.getProfile()
   const {loading, error, data} = useQuery(QUERY_USER
   )
   

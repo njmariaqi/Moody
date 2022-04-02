@@ -7,6 +7,7 @@ export const GlobalContext = React.createContext();
 
 export default function GlobalProvider({value=[], ...props}) {
   const [state, dispatch] = useGlobalReducer({
+    login: false,
     username: {},
     query:"",
     collectionList:[],
