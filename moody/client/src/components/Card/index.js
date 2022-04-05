@@ -10,6 +10,7 @@ import {
   SHOW_IMG_MODAL,
   GET_COLLECTION_LIST
 } from '../../utils/actions'
+import { saveAs } from "file-saver";
 
 const Card = React.forwardRef((props, ref)=> {
   const [state, dispatch] = useGlobalContext();
@@ -73,7 +74,10 @@ const Card = React.forwardRef((props, ref)=> {
     }
 
   return (
-    <div className="col-3 my-3">
+    
+    <div 
+      className="mx-2 my-3"
+    >
       <div className="card shadow-sm" ref={ref}>
           <img onClick={viewLargeImg}
           src={props.imgSrc} alt='testing img'></img>
@@ -99,8 +103,18 @@ const Card = React.forwardRef((props, ref)=> {
             </svg>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a className="dropdown-item" href="#" key="copyLink">download</a></li>
-              <li><a className="dropdown-item" href="#" key="sendViaEmail">share</a></li>
+              <li>
+                <a 
+                  onClick={()=>{saveAs(props.imgSrc, "moody download")}}
+                  className="dropdown-item" key="copyLink">download
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="mailto:" 
+
+                  className="dropdown-item" key="sendViaEmail">share</a>
+              </li>
             </ul>
           </div>
       </div>

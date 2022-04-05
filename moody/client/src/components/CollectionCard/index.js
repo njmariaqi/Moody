@@ -66,8 +66,8 @@ export default function CollectionCard(props) {
               onClick={deleteCollection}
               data-id={props.id} 
               className="dropdown-item" href="#" key="copyLink">delete collection</a></li>
-              <li><a className="dropdown-item" 
-              href="#" key="sendViaEmail">rename collection</a></li>
+              {/* <li><a className="dropdown-item" 
+              href="#" key="sendViaEmail">rename collection</a></li> */}
             </ul>
           </div>
           </div>

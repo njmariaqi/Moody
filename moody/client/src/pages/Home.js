@@ -11,6 +11,7 @@ import CollectionInfo from '../components/CollectionInfo';
 import ImgModal from '../components/ImgModal/index';
 import Auth from '../utils/auth'
 import auth from '../utils/auth';
+import Masonry from 'react-masonry-css'
 
 const axios = require('axios');
 
@@ -70,23 +71,31 @@ export default function Home() {
 
   
   return (
-    <div>
-      <div className="album py-5" style={{marginTop: '180px'}}>
-      <div className="container">
-        <div className="row justify-content-start">
-          {imageArry.map((e, index) => {
-            if (index === imageArry.length - 1) {
-              return <Card ref={lastElement}
-              id={e.id} key={e.id} imgSrc={e.src.large} imgId={e.id} imgInfo={e} photographer={e.photographer} />
-            }
-            return <Card id={e.id} key={e.id} imgSrc={e.src.large} imgId={e.id} imgInfo={e} photographer={e.photographer} />})}
+    
+      <div>
+        <div className="album py-5" style={{marginTop: '180px'}}>
+        <div className="container">
+          <div className="row justify-content-start" data-masonry='{"percentPosition": true }'>
+          <Masonry 
+    breakpointCols={4}
+    className="my-masonry-grid"
+    columnClassName="my-masonry-grid_column">
+            {imageArry.map((e, index) => {
+              if (index === imageArry.length - 1) {
+                return <Card ref={lastElement}
+                id={e.id} key={e.id} imgSrc={e.src.large} imgId={e.id} imgInfo={e} photographer={e.photographer} />
+              }
+              return <Card id={e.id} key={e.id} imgSrc={e.src.large} imgId={e.id} imgInfo={e} photographer={e.photographer} />})}
+            </Masonry>
+          </div>
+          <div>{pageLoading && 'loading...'}</div>
+          <div>{pageError && 'error...'}</div>
         </div>
-        <div>{pageLoading && 'loading...'}</div>
-        <div>{pageError && 'error...'}</div>
+        </div>
+        <CollectionInfo />
+        <ImgModal />
       </div>
-      </div>
-      <CollectionInfo />
-      <ImgModal />
-    </div>
+    
+    
   );
 }

@@ -32,3 +32,37 @@
   margin: auto;
   background-color: white;
 }
+
+/* @media (min-width: 576px) {
+  .card-columns {
+      column-count: 2;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-columns {
+      column-count: 3;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-columns {
+      column-count: 4;
+  }
+} */
+
+/* @media (min-width: 1200px) {
+  .card-columns {
+      column-count: 5;
+  }
+} */
+
+.my-masonry-grid {
+  display: flex;
+  margin-left: 0px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 5px; /* gutter size */
+  background-clip: padding-box;
+}

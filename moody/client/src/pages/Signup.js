@@ -4,8 +4,11 @@ import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from '../utils/globalContext';
+import {LOGIN_STATUS} from '../utils/actions';
 
 export default function Signup() {
+  const [state, dispatch] = useGlobalContext();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     firstName: "",
@@ -37,6 +40,9 @@ export default function Signup() {
     });
     const token = res.data.addUser.token;
     Auth.login(token);
+    dispatch({
+      type: LOGIN_STATUS
+    })
     navigate("/");
   }
 
