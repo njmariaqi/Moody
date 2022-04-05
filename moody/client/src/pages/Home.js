@@ -46,7 +46,6 @@ export default function Home() {
         type: HOME_IMAGES,
         payload: curatedResult.photos
       });
-      console.log(state, 'home console');
 
       setHasMore(curatedResult.photos.length > 0);
       setpageLoading(false)

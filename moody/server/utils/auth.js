@@ -8,7 +8,6 @@ let count = 1;
 
 module.exports = {
   authMiddleware: function ({ req }) {
-    console.log('authmiddleware',count)
     count ++;
     let token = req.body.token || req.query.token || req.headers.authorization;
     
@@ -23,7 +22,8 @@ module.exports = {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
     } catch (err) {
-      console.error(err, 'Invalid token');
+      // TODO handle jwt expire error (send user to home page?)
+      console.error(err);
     }
 
     return req;
