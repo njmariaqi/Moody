@@ -22,6 +22,9 @@ export default function CollectionList() {
     })
   },[])
 
+  const testLog = ()=>{
+    console.log("length is 0")
+  }
 
   useEffect(()=>{
     try{
@@ -65,7 +68,7 @@ export default function CollectionList() {
       (<div>
         <div className="container d-flex justify-content-center mt-5">
           <div style={{marginTop: '80px'}}>
-            <img className='rounded-circle d-flex mx-auto' width='128' src='https://images.squarespace-cdn.com/content/v1/562146dae4b018ac1df34d5f/1450121660392-KS2FGMOXB7VL1JNQ487I/person-placeholder.jpg?format=1000w' alt='user profile'/>
+            <img className='rounded-circle d-flex mx-auto' width='128' src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png' alt='user profile'/>
             <h2 className="text-center">{username.firstName} {username.lastName}</h2>
             <p className="text-center">E-mail: {username.email}</p>
           </div>
@@ -73,7 +76,15 @@ export default function CollectionList() {
         <div className="album py-3">
         <div className="container">
           <div className="row justify-content-start">
-            {collectionList.map((e) => {return <CollectionCard key = {e._id} id = {e._id} collectionName = {e.name} collectionId = {e._id} images = {e.images} 
+            { collectionList.length === 0? 
+            <>
+            <h4 className="d-flex justify-content-center">👋 Hi!</h4>
+            <h4 className="d-flex justify-content-center">You have no collection yet.</h4>
+            <h4 className="d-flex justify-content-center">Try search for some photos and add your first collection :)</h4>
+            </>
+            :
+            collectionList.map((e) => {
+              return <CollectionCard key = {e._id} id = {e._id} collectionName = {e.name} collectionId = {e._id} images = {e.images} 
             coverSrc = {e.cover.src.large}
             />})}
           </div>
