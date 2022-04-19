@@ -82,14 +82,10 @@ export default function CollectionList() {
         <div className="album py-3">
         <div className="container">
           <div className="row justify-content-start">
-            { collectionList.length === 0? 
-            <>
-            <h4 className="d-flex justify-content-center">👋 Hi!</h4>
-            <h4 className="d-flex justify-content-center">You have no collection yet.</h4>
-            <h4 className="d-flex justify-content-center">Try search for some photos and add your first collection :)</h4>
-            </>
-            :
-            collectionList.map((e) => {
+
+            
+            
+            {collectionList.map((e) => {
               return <CollectionCard key = {e._id} id = {e._id} collectionName = {e.name} collectionId = {e._id} images = {e.images} 
             coverSrc = {e.cover.src.large}
             />})}
@@ -97,7 +93,13 @@ export default function CollectionList() {
         </div>
       </div>
       </div>)
-      :(<div>Loading...</div>)}
+      :(
+        <div style={{marginTop: '120px'}}>
+          <h4 className="d-flex justify-content-center">👋 Hi!</h4>
+          <h4 className="d-flex justify-content-center">You have no collection yet.</h4>
+          <h4 className="d-flex justify-content-center">Try search for some photos and add your first collection :)</h4>
+        </div>
+      )}
       
       </>
     ); 
