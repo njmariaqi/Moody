@@ -21,7 +21,9 @@ import {
   CLEAR_COLLECTION_LIST,
   LOGIN_STATUS,
   LOGOUT_STATUS,
-  DELETE_COLLECTION
+  DELETE_COLLECTION,
+  HIDE_ALERT,
+  SHOW_ALERT,
 } from './actions'
 
 export const reducer = (state, action) => {
@@ -124,6 +126,16 @@ export const reducer = (state, action) => {
         ...state,
         imgModal: true
       };
+    case HIDE_ALERT:
+      return {
+        ...state,
+        alertModal: false
+      };
+      case SHOW_ALERT:
+        return {
+          ...state,
+          alertModal: {show: true, message: action.payload}
+        }
     case HOME_IMAGES:
       return{
         ...state,

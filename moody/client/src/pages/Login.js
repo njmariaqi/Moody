@@ -5,8 +5,9 @@ import { LOGIN } from '../utils/mutations';
 //import { QUERY_ONE_COLLECTION } from '../utils/queries';
 import Auth from '../utils/auth'
 import { useGlobalContext } from '../utils/globalContext';
-import {GET_COLLECTION_LIST, PRESENT_IMAGES, LOGIN_STATUS, GET_USER_INFO} from '../utils/actions';
+import {GET_COLLECTION_LIST, SHOW_ALERT, LOGIN_STATUS, GET_USER_INFO} from '../utils/actions';
 import { useNavigate } from "react-router-dom";
+import Alert from '../components/Alert/Alert';
 
 const axios = require('axios');
 
@@ -18,14 +19,26 @@ export default function Login() {
   const navigate = useNavigate();
 
   const loginSubmit = async (e) => {
-    
-
     e.preventDefault();
+    if (!email) {
+      dispatch({
+        type: SHOW_ALERT,
+        payload: "Email cannot be empty!"
+      })
+    }
+    if (!password) {
+      dispatch({
+        type: SHOW_ALERT,
+        payload: "Password cannot be empty!"
+      })
+    }
+
     try {
       const { data } = await login({
-        variables: {email: email, password:password}
+        variables: {email: email.toLowerCase(), password:password}
       });
-      
+      console.log("here is errror", error);
+
       const collection = data.login.user.collections;
       collection.map(async (e) => {
         let res = await axios.get(`https://api.pexels.com/v1/photos/${e.images[0]}`, 
@@ -59,6 +72,24 @@ export default function Login() {
 
     } catch (e) {
       console.error(e);
+      if (e.toString()==="Error: No user found with this email address"){
+        dispatch({
+          type: SHOW_ALERT,
+          payload: "Incorrect email address, please try again!"
+        })
+      }
+      else if (e.toString()==="Error: Incorrect credentials"){
+        dispatch({
+          type: SHOW_ALERT,
+          payload: "Incorrect password, please try again!"
+        })
+      }
+      else {
+        dispatch({
+          type: SHOW_ALERT,
+          payload: "Oops, something went wrong..."
+        })
+      }
     }
     setEmail('');
     setPassword('')
@@ -88,7 +119,7 @@ export default function Login() {
           </div>
         </div>
       </div>
-      
+      <Alert />
       
       
     </div>

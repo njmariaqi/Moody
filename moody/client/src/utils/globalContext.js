@@ -16,6 +16,7 @@ export default function GlobalProvider({value=[], ...props}) {
     collectionImgs: [],
     collectionModal: false,
     imgModal: false,
+    alertModal: {show: false, message: "Oops, something went wrong"},
     imgInfo: {
       id: "",
       photographer: "",
