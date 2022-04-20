@@ -76,9 +76,9 @@ export default function Home() {
         <div className="container">
           <div className="row justify-content-start" data-masonry='{"percentPosition": true }'>
           <Masonry 
-    breakpointCols={4}
-    className="my-masonry-grid"
-    columnClassName="my-masonry-grid_column">
+            breakpointCols={4}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column">
             {imageArry.map((e, index) => {
               if (index === imageArry.length - 1) {
                 return <Card ref={lastElement}

@@ -13,6 +13,7 @@ export default function CollectionList() {
   const [ collectionExists, setCollectionExists ] = useState(false);
   const { collectionList, username } = state;
   const { loading, error, data } = useQuery(QUERY_USER);
+  const [loginStatus, setLoginStatus] = useState (true);
 
   useEffect(()=>{
     dispatch({
@@ -22,7 +23,11 @@ export default function CollectionList() {
 
   useEffect(()=>{
     try {
+      if (!data) {
+        setLoginStatus(false)
+      }
       if (data) {
+        console.log("queryuser data", data)
         const collection = data.user.collections;
         if (collection.length > 0) {
           for (let i = 0; i < collection.length; i++) {
@@ -63,7 +68,7 @@ export default function CollectionList() {
         })
       }
     } catch (err) {
-      console.error("Error fetching images from API.", err);
+      console.error("CANNOT GET USER", err);
     }
   }, [loading])
 
@@ -82,9 +87,6 @@ export default function CollectionList() {
         <div className="album py-3">
         <div className="container">
           <div className="row justify-content-start">
-
-            
-            
             {collectionList.map((e) => {
               return <CollectionCard key = {e._id} id = {e._id} collectionName = {e.name} collectionId = {e._id} images = {e.images} 
             coverSrc = {e.cover.src.large}
@@ -93,13 +95,21 @@ export default function CollectionList() {
         </div>
       </div>
       </div>)
-      :(
-        <div style={{marginTop: '120px'}}>
-          <h4 className="d-flex justify-content-center">👋 Hi!</h4>
-          <h4 className="d-flex justify-content-center">You have no collection yet.</h4>
-          <h4 className="d-flex justify-content-center">Try search for some photos and add your first collection :)</h4>
-        </div>
-      )}
+      :
+      loginStatus?
+        (<div style={{marginTop: '200px'}}>
+            <h4 className="d-flex justify-content-center">👋 Hi!</h4>
+            <h4 className="d-flex justify-content-center">You have no collection yet.</h4>
+            <h4 className="d-flex justify-content-center">Try search for some photos and add your first collection :)</h4>
+          </div>)
+        :
+        (
+          <div style={{marginTop: '200px'}}>
+            <h4 className="d-flex justify-content-center">👋 Hi!</h4>
+            <h4 className="d-flex justify-content-center">You need to log in to view your collections.</h4>
+          </div>
+        )   
+      }
       
       </>
     ); 
