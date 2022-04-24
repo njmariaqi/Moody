@@ -9,73 +9,80 @@ const axios = require('axios');
 
 export default function CollectionList() {
   const [ state, dispatch ] = useGlobalContext();
-  const [ coverIsLoaded, setCoverLoaded ] = useState(false);
-  const [ collectionExists, setCollectionExists ] = useState(false);
+  const [ coversAreLoaded, setCoversLoaded ] = useState(false);
   const { collectionList, username } = state;
-  const { loading, error, data } = useQuery(QUERY_USER);
-  const [loginStatus, setLoginStatus] = useState (true);
+  const { loading, error, data } = useQuery(QUERY_USER, { fetchPolicy: 'cache-and-network' });
+  const [ loginStatus, setLoginStatus ] = useState (true);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch({
       type: CLEAR_COLLECTION_LIST
-    })
-  },[])
+    });
+  }, [])
 
-  useEffect(()=>{
-    try {
-      if (!data) {
-        setLoginStatus(false)
-      }
-      if (data) {
-        console.log("queryuser data", data)
-        const collection = data.user.collections;
-        if (collection.length > 0) {
-          for (let i = 0; i < collection.length; i++) {
-            if (i === collection.length - 1) {
-              setCoverLoaded(true);
+  useEffect(() => {
+    if (loading === false) {
+      try {
+        if (!data) {
+          setLoginStatus(false)
+        }
+        if (data) {
+          // User information is available, start getting cover images
+          console.log(data)
+          const { firstName, lastName, email } = data.user;
+          const userCollections = data.user.collections;
+          const collectionsToFetch = [];
+          if (userCollections.length > 0) {
+            for (let i = 0; i < userCollections.length; i++) {
+              // Create array of GET requests
+              let req = axios.get(
+                `https://api.pexels.com/v1/photos/${userCollections[i].images[0]}`, 
+                { headers: { 'Authorization': '563492ad6f917000010000015cf5ff7c412542d980a62beb2d41dc62' } }
+              );
+              collectionsToFetch.push(req);
             }
-            getCoverImg(collection[i]);
+            // Fire off GET requests
+            Promise.all(collectionsToFetch)
+              .then((res) => {
+                // All cover images are retrieved, good to start rendering
+                dispatch({
+                  type: GET_USER_INFO,
+                  payload: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email
+                  }
+                });
+                for (let i = 0; i < userCollections.length; i++) {
+                  // Update state about new collection information
+                  for (let j = 0; j < res.length; j++) {
+                    // Images IDs must match to tie cover to collection item
+                    if (userCollections[i].images[0] === res[j].data.id) {
+                      let collectionData = { ...userCollections[i], cover: res[j].data };
+                      dispatch({
+                        type: ADD_NEW_COLLECTION,
+                        payload: collectionData 
+                      });
+                    }
+                  }
+                }
+                setCoversLoaded(true);
+              })
+              .catch((err) => {
+                console.error('Error getting cover images.', err)
+              })
           }
-          setCollectionExists(true);
-        } else {
-          // no collection exists
         }
-        async function getCoverImg (col) {
-          try {
-            const res = await axios.get(
-              `https://api.pexels.com/v1/photos/${col.images[0]}`, 
-              { headers: { 'Authorization': '563492ad6f917000010000015cf5ff7c412542d980a62beb2d41dc62' } }
-            );
-            col = {...col, cover: res.data};
-            dispatch({
-              type: ADD_NEW_COLLECTION,
-              payload: col
-            });
-          } catch (err) {
-            // TODO handle error
-            console.error('Unable to fetch cover images.',err);
-          }
-        }
-        
-        const{ firstName, lastName, email } = data.user;
-        dispatch({
-          type: GET_USER_INFO,
-          payload: {
-            firstName: firstName,
-            lastName: lastName,
-            email: email
-          }
-        })
+      } catch (err) {
+        console.error('Error getting user information.', err);
       }
-    } catch (err) {
-      console.error("CANNOT GET USER", err);
     }
   }, [loading])
 
 
     return (
       <>
-      { collectionList && username && coverIsLoaded && collectionExists ?
+      { collectionList.length > 0 && username && coversAreLoaded && loading === false ?
       (<div>
         <div className="container d-flex justify-content-center mt-5">
           <div style={{marginTop: '80px'}}>
@@ -87,16 +94,24 @@ export default function CollectionList() {
         <div className="album py-3">
         <div className="container">
           <div className="row justify-content-start">
-            {collectionList.map((e) => {
-              return <CollectionCard key = {e._id} id = {e._id} collectionName = {e.name} collectionId = {e._id} images = {e.images} 
-            coverSrc = {e.cover.src.large}
-            />})}
+            {
+              collectionList.map((e) => {
+                return <CollectionCard
+                  key = { e._id }
+                  id = { e._id }
+                  collectionName = { e.name }
+                  collectionId = { e._id }
+                  images = { e.images }
+                  coverSrc = { e.cover.src.large }
+                />
+              })
+            }
           </div>
         </div>
       </div>
       </div>)
       :
-      loginStatus?
+      loginStatus ?
         (<div style={{marginTop: '200px'}}>
             <h4 className="d-flex justify-content-center">👋 Hi!</h4>
             <h4 className="d-flex justify-content-center">You have no collection yet.</h4>
@@ -110,7 +125,6 @@ export default function CollectionList() {
           </div>
         )   
       }
-      
       </>
     ); 
   }
