@@ -28,7 +28,6 @@ export default function CollectionList() {
         }
         if (data) {
           // User information is available, start getting cover images
-          console.log(data)
           const { firstName, lastName, email } = data.user;
           const userCollections = data.user.collections;
           const collectionsToFetch = [];
