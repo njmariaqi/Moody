@@ -54,7 +54,9 @@ export default function CollectionCard(props) {
     return (
         <div className="col-3 my-3" >
           <div className="card shadow-sm">
-            <img style={{height: '240px', objectFit:'cover'}} src={props.coverSrc} alt="nahnah"/>
+            <img style={{height: '240px', objectFit:'cover'}} 
+            onClick={viewCollection} 
+            src={props.coverSrc} alt="nahnah"/>
             <div className="dropup">
             <button className='btn hiddenFav dropdown-toggle' data-bs-toggle="dropdown" style={{backgroundColor: 'transparent'}} aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-three-dots" viewBox="0 0 16 16">

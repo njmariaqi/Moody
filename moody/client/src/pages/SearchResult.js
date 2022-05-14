@@ -7,6 +7,7 @@ import {
   SEARCH_RESULT,
   CLEAR_IMG_HISTORY
 } from '../utils/actions';
+import Masonry from 'react-masonry-css'
 
 const axios = require('axios');
 
@@ -69,12 +70,17 @@ export default function SearchResult() {
       <div className="album py-5" style={{marginTop: '180px'}}>
         <div className="container">
           <div className="row justify-content-start">
-          {searchResultImg.map((e, index) => {
-            if (index === searchResultImg.length - 1) {
-              return <Card ref={lastElement}
-              id={e.id} key={e.id} imgSrc={e.src.large} imgId={e.id} imgInfo={e} photographer={e.photographer} />
-            }
-            return <Card id={e.id} key={e.id} imgSrc={e.src.large} imgId={e.id} imgInfo={e} photographer={e.photographer} />})}
+          <Masonry 
+            breakpointCols={4}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column">
+              {searchResultImg.map((e, index) => {
+                if (index === searchResultImg.length - 1) {
+                  return <Card ref={lastElement}
+                  id={e.id} key={e.id} imgSrc={e.src.large} imgId={e.id} imgInfo={e} photographer={e.photographer} />
+                }
+                return <Card id={e.id} key={e.id} imgSrc={e.src.large} imgId={e.id} imgInfo={e} photographer={e.photographer} />})}
+            </Masonry>
           </div>
           <div>{loading && 'loading...'}</div>
           <div>{error && 'error...'}</div>
