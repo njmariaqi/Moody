@@ -8,7 +8,8 @@ import {
   SHOW_COLLECTION_MODAL,
   GET_IMAGE_INFO,
   SHOW_IMG_MODAL,
-  GET_COLLECTION_LIST
+  GET_COLLECTION_LIST,
+  UPDATE_COLLECTION
 } from '../../utils/actions'
 import { saveAs } from "file-saver";
 
@@ -18,12 +19,19 @@ const Card = React.forwardRef((props, ref)=> {
   const [addImage, {error}] = useMutation(ADD_IMAGE)
   const {loading, data} = useQuery(QUERY_USER)
   
+
+  const test = ()=>{
+    console.log("new log", state)
+  }
+
+
   useEffect(()=>{
     if(data){
       dispatch({
         type: GET_COLLECTION_LIST,
         payload: data.user.collections
       })
+      //console.log('from database', data)
     }
   }, [data, loading])
 
@@ -83,6 +91,7 @@ const Card = React.forwardRef((props, ref)=> {
           src={props.imgSrc} alt='testing img'></img>
           <div className="dropup hiddenCollection">
             <button className="btn dropdown-toggle" 
+            onClick= {test}
             type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-collection" viewBox="0 0 16 16">
                 <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>

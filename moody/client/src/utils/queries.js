@@ -32,15 +32,28 @@ export const QUERY_USER_ID = gql`
   }
 `
 
-export const QUERY_COLLECTIONS = gql`
-  query collections($name: String!){
-    collections{
-        _id
-        name
-        images
-    } 
-  }
-`
+// export const QUERY_COLLECTIONS = gql`
+//   query collections($name: String!){
+//     collections{
+//         _id
+//         name
+//         images
+//     } 
+//   }
+// `
+
+// export const QUERY_ALL_COLLECTIONS = gql`
+//   query allCollections{
+//     user{  
+//       collections {
+//         _id
+//         name
+//         images
+//       } email
+//         }
+//     } 
+//   }
+// `
 
 export const QUERY_ONE_COLLECTION = gql`
   query oneCollection($collectionId: ID!){

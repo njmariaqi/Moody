@@ -49,7 +49,8 @@ export default function Home() {
 
       setHasMore(curatedResult.photos.length > 0);
       setpageLoading(false)
-
+      console.log("home state", state)
+      console.log("page", page)
       } catch(err) {
         console.error(err)
       }
