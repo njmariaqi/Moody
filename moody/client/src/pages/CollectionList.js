@@ -76,7 +76,7 @@ export default function CollectionList() {
         console.error('Error getting user information.', err);
       }
     }
-  }, [loading])
+  }, [loading, collectionUpdates])
 
 
     return (
