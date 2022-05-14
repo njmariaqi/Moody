@@ -10,9 +10,13 @@ const resolvers = {
     userId: async(parent, {userId}) =>{
       return User.findOne({_id: userId}).populate('collections')
     },
-    collections: async(parent, {name}) =>{
-      return Collection.find({name}).populate('user')
-    },
+  //   allCollections: async (parent, args, context) => {
+  //     if (context.user) {
+  //       return User.findOne({ _id: context.user._id }).populate('collections');
+  //     }
+  //     throw new AuthenticationError('You need to be logged in!');
+  //   }
+  // },
     collection: async(parent, {collectionId}) =>{
       return Collection.findOne({_id: collectionId}).populate('user')
     },

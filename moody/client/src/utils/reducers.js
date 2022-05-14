@@ -24,6 +24,7 @@ import {
   DELETE_COLLECTION,
   HIDE_ALERT,
   SHOW_ALERT,
+  UPDATE_COLLECTION,
 } from './actions'
 
 export const reducer = (state, action) => {
@@ -33,6 +34,11 @@ export const reducer = (state, action) => {
         ...state,
         login: true
       };
+    case UPDATE_COLLECTION:
+      return{
+        ...state,
+        collectionUpdates: true
+      }
     case LOGOUT_STATUS:
       return{
         login: false,
@@ -70,11 +76,7 @@ export const reducer = (state, action) => {
         ...state,
         collectionImgs:[]
       };
-    case GET_COLLECTION_LIST:
-      return{
-        ...state,
-        collectionList: action.payload
-      };
+    
     case GET_COLLECTION_INFO:
       return{
         ...state,
@@ -88,6 +90,7 @@ export const reducer = (state, action) => {
     case UPDATE_COLLECTION_LIST:
       return{
         ...state,
+        collectionUpdates: true,
         collectionList: state.collectionList.map((e)=>{
           if(e._id ===action.payload.collectionId){
             console.log('add')
@@ -115,6 +118,11 @@ export const reducer = (state, action) => {
       return{
         ...state,
         collectionList: [...state.collectionList, action.payload]
+      };
+    case GET_COLLECTION_LIST:
+      return{
+        ...state,
+        collectionList: action.payload
       };
     case HIDE_IMG_MODAL:
       return{

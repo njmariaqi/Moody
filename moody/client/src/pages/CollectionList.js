@@ -11,7 +11,7 @@ export default function CollectionList() {
   const [ state, dispatch ] = useGlobalContext();
   const [ coverIsLoaded, setCoverLoaded ] = useState(false);
   const [ collectionExists, setCollectionExists ] = useState(false);
-  const { collectionList, username } = state;
+  const { collectionList,collectionUpdates, username } = state;
   const { loading, error, data } = useQuery(QUERY_USER);
   const [loginStatus, setLoginStatus] = useState (true);
 
@@ -27,8 +27,9 @@ export default function CollectionList() {
         setLoginStatus(false)
       }
       if (data) {
-        console.log("queryuser data", data)
+        console.log("update collection", collectionUpdates)
         const collection = data.user.collections;
+        console.log("collections from database", collection)
         if (collection.length > 0) {
           for (let i = 0; i < collection.length; i++) {
             if (i === collection.length - 1) {
@@ -37,6 +38,7 @@ export default function CollectionList() {
             getCoverImg(collection[i]);
           }
           setCollectionExists(true);
+          console.log("collection data", data)
         } else {
           // no collection exists
         }
@@ -44,7 +46,7 @@ export default function CollectionList() {
           try {
             const res = await axios.get(
               `https://api.pexels.com/v1/photos/${col.images[0]}`, 
-              { headers: { 'Authorization': '563492ad6f917000010000015cf5ff7c412542d980a62beb2d41dc62' } }
+              { headers: { 'Authorization': '563492ad6f917000010000016c4b56d578274683956ae00d8dcd354a' } }
             );
             col = {...col, cover: res.data};
             dispatch({
@@ -70,7 +72,7 @@ export default function CollectionList() {
     } catch (err) {
       console.error("CANNOT GET USER", err);
     }
-  }, [loading])
+  }, [loading, collectionUpdates])
 
 
     return (

@@ -26,7 +26,7 @@ type Query {
   users: [User]
   user: User
   userId(userId: ID!): User
-  collections(name: String!): [Collection]
+  allCollections: User
   collection(collectionId: ID!): Collection
   
 }
