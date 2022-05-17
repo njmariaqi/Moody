@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/Moody-App', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/moody', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }, err => {
