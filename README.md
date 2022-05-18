@@ -2,13 +2,13 @@
 
 ## **[🔗 Demo Here](https://moody-app-by-maria.herokuapp.com/)**
 
-### Moody is a minimalism mood board app that allows searching, saving, organizing and sharing images.
+Moody is a minimalism mood board app that allows searching, saving, organizing and sharing images.
 
 <img src="./src/1.jpg" alt="home page demo" style="width:400px;"/>
 
 ## **About The Project**
 
-### Moody uses [Pexels](https://www.pexels.com/) photo library and gives users access to millions of copyright free images.
+Moody uses [Pexels](https://www.pexels.com/) photo library and gives users access to millions of copyright free images.
 
 ### User could:
 
