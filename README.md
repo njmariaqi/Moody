@@ -1,13 +1,47 @@
-# Moody, a simple mood board
+# **Moody, a simple mood board**
 
-Moody is a minimalism mood board app that allows searching, saving, organizing and sharing images.
+## **[🔗 Demo Here](https://moody-app-by-maria.herokuapp.com/)**
 
-[Demo](https://moody-app-by-maria.herokuapp.com/)
+### Moody is a minimalism mood board app that allows searching, saving, organizing and sharing images.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<img src="./src/1.jpg" alt="home page demo" style="width:400px;"/>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## **About The Project**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Moody uses [Pexels](https://www.pexels.com/) photo library and gives users access to millions of copyright free images.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### User could:
+
+- search for images with any keywords
+
+- create collection and add images
+
+- sharing images between friends
+
+<img src="./src/3.jpg" alt="search page demo" style="width:400px;"/>
+<img src="./src/4.jpg" alt="image page demo" style="width:400px;"/>
+<img src="./src/2.jpg" alt="collection page demo" style="width:400px;"/>  
+<img src="./src/5.jpg" alt="collection list demo" style="width:400px;"/>
+
+## **Built with**
+
+Moody is a MERN stack app
+
+- React.js
+- Node.js
+- MongoDB
+- Express.js
+- Bootstrap
+- Pexels API
+
+## **Credits**
+
+team member: Alvin Ng
+
+## **License**
+
+Distributed under the MIT License.
+
+## **Contact**
+
+Maria Qi
